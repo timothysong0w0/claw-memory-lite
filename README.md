@@ -207,17 +207,9 @@ python3 scripts/extract_memory.py [--review]
 ## Roadmap
 
 - [ ] Add `--export` flag to dump DB to JSON/Markdown
-- [ ] Support for custom category definitions
-- [ ] Web UI for browsing/searching memories
 - [ ] Integration with OpenClaw's native `memory_search` tool
 
-## Contributing
-
-1. Fork the repo
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+**Contributions welcome!** Have ideas or want to help? Open an issue or submit a PR.
 
 ## License
 
