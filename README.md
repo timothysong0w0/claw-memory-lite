@@ -223,10 +223,13 @@ python3 scripts/extract_memory.py [--review]
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
+For detailed acknowledgments and inspiration sources, see [CREDITS.md](CREDITS.md).
+
 ## Acknowledgments
 
-- [OpenClaw](https://github.com/openclaw/openclaw) — The AI agent framework this is built for
-- [OpenViking](https://github.com/volcengine/OpenViking) — Inspiration for L0/L1/L2 hierarchy
+- **鸿蒙小张** (小红书博主) — Original inspiration for this project's core concept. This implementation was created with permission and based on his ideas.
+- [OpenViking](https://github.com/volcengine/OpenViking) by ByteDance — Inspiration for the L0/L1/L2 hierarchy structure and context management paradigm.
+- [OpenClaw](https://github.com/openclaw/openclaw) — The AI agent framework this is built for.
 
 ---
 

@@ -39,6 +39,9 @@ logs/
 *.backup
 backup/
 
+# Documentation
+*.md~
+
 # Environment
 .env
 .env.local
