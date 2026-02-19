@@ -44,7 +44,7 @@ cp claw-memory-lite/scripts/*.py scripts/
 
 ```bash
 # Run extraction script once (creates database automatically)
-python3 scripts/extract_memory.py
+python scripts/extract_memory.py
 ```
 
 ### 3. Configure Heartbeat (Optional)
@@ -52,7 +52,7 @@ python3 scripts/extract_memory.py
 Edit `HEARTBEAT.md` to add automated daily extraction:
 
 ```bash
-python3 /home/node/.openclaw/workspace/scripts/extract_memory.py
+python /home/node/.openclaw/workspace/scripts/extract_memory.py
 ```
 
 ## Usage
@@ -60,31 +60,31 @@ python3 /home/node/.openclaw/workspace/scripts/extract_memory.py
 ### Search by Keyword
 
 ```bash
-python3 scripts/db_query.py backup
+python scripts/db_query.py backup
 ```
 
 ### Filter by Category
 
 ```bash
-python3 scripts/db_query.py --category Skill
+python scripts/db_query.py --category Skill
 ```
 
 ### Combined Query
 
 ```bash
-python3 scripts/db_query.py uv --category Environment
+python scripts/db_query.py uv --category Environment
 ```
 
 ### Auto-Extraction (Preview Mode)
 
 ```bash
-python3 scripts/extract_memory.py --review
+python scripts/extract_memory.py --review
 ```
 
 ### Auto-Extraction (Execute)
 
 ```bash
-python3 scripts/extract_memory.py
+python scripts/extract_memory.py
 ```
 
 ## Categories
@@ -182,7 +182,7 @@ cp claw-memory-lite/templates/*.md /home/node/.openclaw/workspace/
 
 ```bash
 # Usage
-python3 scripts/db_query.py [SEARCH_TERM] [--category CATEGORY]
+python scripts/db_query.py [SEARCH_TERM] [--category CATEGORY]
 
 # Arguments
 SEARCH_TERM          Keyword to search (optional)
@@ -193,7 +193,7 @@ SEARCH_TERM          Keyword to search (optional)
 
 ```bash
 # Usage
-python3 scripts/extract_memory.py [--review]
+python scripts/extract_memory.py [--review]
 
 # Arguments
 --review    Preview mode (don't write to DB)
