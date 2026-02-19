@@ -149,4 +149,4 @@ For detailed acknowledgments and inspiration sources, see [CREDITS.md](CREDITS.m
 
 ---
 
-**Built with 🐯 for OpenClaw users who value speed, privacy, and simplicity.**
+**Built with us for OpenClaw users who value speed, privacy, and simplicity.**
