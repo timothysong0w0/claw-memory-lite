@@ -25,6 +25,10 @@ OpenClaw's native `memory/*.md` approach works great initially, but as memory fi
 
 ### 1. Installation
 
+**Prerequisites:**
+- OpenClaw workspace with Python 3.11+
+- `uv` package manager (typically at `/root/.local/bin/uv` or `~/.local/bin/uv`)
+
 ```bash
 # Clone into your OpenClaw workspace
 cd /home/node/.openclaw/workspace
@@ -33,6 +37,8 @@ git clone https://github.com/timothysong0w0/claw-memory-lite.git
 # Copy scripts to your workspace
 cp claw-memory-lite/scripts/*.py scripts/
 ```
+
+> 💡 **Note on `uv`**: OpenClaw uses `uv` for Python dependency management. If scripts fail to run, ensure `uv` is in your PATH or use the full path (e.g., `/root/.local/bin/uv`).
 
 ### 2. Initialize
 
@@ -219,7 +225,7 @@ For detailed acknowledgments and inspiration sources, see [CREDITS.md](CREDITS.m
 
 ## Acknowledgments
 
-- **鸿蒙小张** (小红书博主) — Original inspiration for this project's core concept. This implementation was created with permission and based on his ideas.
+- **鸿蒙小张** (Xiaohongshu/RedNote blogger) — Original inspiration for this project's core concept. This implementation was created with permission and based on his ideas.
 - [OpenViking](https://github.com/volcengine/OpenViking) by ByteDance — Inspiration for the L0/L1/L2 hierarchy structure and context management paradigm.
 - [OpenClaw](https://github.com/openclaw/openclaw) — The AI agent framework this is built for.
 
