@@ -21,70 +21,61 @@ OpenClaw's native `memory/*.md` approach works great initially, but as memory fi
 - ✅ **Zero External Dependencies** — Pure Python `sqlite3` (built-in)
 - ✅ **Privacy-First** — All data stays local, no API calls
 
-## Quick Start
+## Quick Start (Recommended)
 
 ### 1. Installation
 
-**Prerequisites:**
-- OpenClaw workspace with Python 3.11+
-- `uv` package manager (typically at `/root/.local/bin/uv` or `~/.local/bin/uv`)
+The easiest way is to add it as a standard OpenClaw Skill:
 
 ```bash
-# Clone into your OpenClaw workspace
-cd /home/node/.openclaw/workspace
-git clone https://github.com/timothysong0w0/claw-memory-lite.git
-
-# Copy scripts to your workspace
-cp claw-memory-lite/scripts/*.py scripts/
+npx skills add timothysong0w0/claw-memory-lite --agent openclaw
 ```
 
-> 💡 **Note on `uv`**: OpenClaw uses `uv` for Python dependency management. If scripts fail to run, ensure `uv` is in your PATH or use the full path (e.g., `/root/.local/bin/uv`).
-
-### 2. Initialize
+### 2. Initialize Database
 
 ```bash
 # Run extraction script once (creates database automatically)
-python scripts/extract_memory.py
+python ~/.openclaw/extensions/claw-memory-lite/scripts/extract_memory.py
 ```
 
-### 3. Configure Heartbeat (Optional)
+### 3. Configure Automation
 
-Edit `HEARTBEAT.md` to add automated daily extraction:
+Add the following to your `HEARTBEAT.md` to enable daily memory extraction:
 
 ```bash
-python /home/node/.openclaw/workspace/scripts/extract_memory.py
+python ~/.openclaw/extensions/claw-memory-lite/scripts/extract_memory.py
 ```
 
-## Usage
+---
+
+## Manual Installation (Alternative)
+
+If you prefer to manage scripts manually:
+
+```bash
+# Clone the repository
+git clone https://github.com/timothysong0w0/claw-memory-lite.git
+
+# Copy scripts to your workspace
+cp claw-memory-lite/scripts/*.py /home/node/.openclaw/workspace/scripts/
+```
+
+Usage for manual installation:
+- Search: `python scripts/db_query.py [keyword]`
+- Extract: `python scripts/extract_memory.py`
+
+---
+
+## Usage (Skill Mode)
 
 ### Search by Keyword
-
 ```bash
-python scripts/db_query.py backup
+python ~/.openclaw/extensions/claw-memory-lite/scripts/db_query.py [SEARCH_TERM]
 ```
 
 ### Filter by Category
-
 ```bash
-python scripts/db_query.py --category Skill
-```
-
-### Combined Query
-
-```bash
-python scripts/db_query.py uv --category Environment
-```
-
-### Auto-Extraction (Preview Mode)
-
-```bash
-python scripts/extract_memory.py --review
-```
-
-### Auto-Extraction (Execute)
-
-```bash
-python scripts/extract_memory.py
+python ~/.openclaw/extensions/claw-memory-lite/scripts/db_query.py --category Skill
 ```
 
 ## Categories
@@ -98,136 +89,14 @@ python scripts/extract_memory.py
 | `Comm` | Channel mappings, notification rules, bot configs |
 | `Security` | Access control principles, audit log locations |
 
-## Database Schema
-
-**Table**: `long_term_memory`
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | INTEGER | Primary key (auto-increment) |
-| `category` | TEXT | Category (indexed) |
-| `content` | TEXT | Memory content |
-| `keywords` | TEXT | Keyword index (indexed) |
-| `source_file` | TEXT | Source daily memory file |
-| `created_at` | TIMESTAMP | Creation timestamp |
-| `updated_at` | TIMESTAMP | Last update timestamp |
-
-## L0/L1/L2 Hierarchy
-
-claw-memory-lite adopts a simplified 3-tier structure inspired by OpenViking:
-
-### L0 — Abstract (One-Line Summary)
-
-A single sentence capturing the core essence. Used for quick scanning.
-
-**Example**: `[2026-02-18] System: ModelScope integration complete with Qwen/Kimi aliases`
-
-### L1 — Overview (Category Index)
-
-Categorized summaries (2-3 sentences) for decision-making during planning.
-
-**Example**:
-```markdown
-### 🛠️ Skills
-- **tvscreener**: TradingView data query (HK/A-share/US)
-- **humanizer**: AI writing pattern detection
-- **Tavily**: Disabled since 2026-02-17 (OAuth failure)
-```
-
-### L2 — Details (Full Content in DB)
-
-Complete factual records stored in SQLite, queryable on demand.
-
-**Example**:
-```
-[2026-02-18 05:57:03] Skill: Model `Qwen/Qwen3.5-397B-A17B` → alias `qwen35plus`
-```
-
-## Comparison: claw-memory-lite vs OpenViking
-
-| Feature | claw-memory-lite | OpenViking |
-|---------|------------------|------------|
-| **Target** | OpenClaw-specific | General Agent context |
-| **Dependencies** | None (sqlite3 built-in) | Embedding + VLM models |
-| **Storage** | SQLite | Vector DB + Filesystem |
-| **Retrieval** | SQL + Category Filter | Vector search + Directory recursion |
-| **Complexity** | Low (~200 LOC) | High (full framework) |
-| **Token Optimization** | Query-on-demand (no pre-loading) | L0/L1/L2 layered loading |
-| **Best For** | Conversation memory, config logs | Document/codebase management |
-
-## Integration with OpenClaw
-
-### Option A: OpenClaw Skill (Recommended)
-
-```bash
-npx skills add timothysong0w0/claw-memory-lite --agent openclaw
-```
-
-### Option B: Manual Copy
-
-```bash
-# Copy scripts
-cp claw-memory-lite/scripts/*.py /home/node/.openclaw/workspace/scripts/
-
-# Copy templates
-cp claw-memory-lite/templates/*.md /home/node/.openclaw/workspace/
-
-# Add cron job for daily extraction
-# (See docs/integration.md for details)
-```
-
-## API Reference
-
-### db_query.py
-
-```bash
-# Usage
-python scripts/db_query.py [SEARCH_TERM] [--category CATEGORY]
-
-# Arguments
-SEARCH_TERM          Keyword to search (optional)
--c, --category CAT   Filter by category (optional)
-```
-
-### extract_memory.py
-
-```bash
-# Usage
-python scripts/extract_memory.py [--review]
-
-# Arguments
---review    Preview mode (don't write to DB)
-```
-
-## Performance Benchmarks
-
-| Operation | Time |
-|-----------|------|
-| Database query (keyword) | <5ms |
-| Database query (category) | <2ms |
-| Auto-extraction (per file) | ~50ms |
-| Initial DB creation | ~100ms |
-
-*Benchmarked on Linux x64 with 30+ memory records*
-
 ## Roadmap
 
 - [ ] Add `--export` flag to dump DB to JSON/Markdown
 - [ ] Integration with OpenClaw's native `memory_search` tool
 
-**Contributions welcome!** Have ideas or want to help? Open an issue or submit a PR.
-
 ## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
-For detailed acknowledgments and inspiration sources, see [CREDITS.md](CREDITS.md).
-
-## Acknowledgments
-
-- **鸿蒙小张** (Xiaohongshu/RedNote blogger) — Original inspiration for this project's core concept. This implementation was created with permission and based on his ideas.
-- [OpenViking](https://github.com/volcengine/OpenViking) by ByteDance — Inspiration for the L0/L1/L2 hierarchy structure and context management paradigm.
-- [OpenClaw](https://github.com/openclaw/openclaw) — The AI agent framework this is built for.
+MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
