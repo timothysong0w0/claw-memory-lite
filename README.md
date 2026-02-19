@@ -133,6 +133,8 @@ Complete factual records stored in SQLite, queryable on demand.
 - [ ] Add `--export` flag to dump DB to JSON/Markdown
 - [ ] Integration with OpenClaw's native `memory_search` tool
 
+**Contributions welcome!** Have ideas or want to help? Open an issue or submit a PR.
+
 ## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
